@@ -15,7 +15,7 @@ namespace MakeYourPartyServer.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Your application description page.";
+            ViewBag.Message = "Let's make your party?.";
 
             return View();
         }
