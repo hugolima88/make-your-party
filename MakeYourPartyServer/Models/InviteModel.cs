@@ -7,18 +7,19 @@ using System.Web;
 
 namespace MakeYourPartyServer.Models
 {
-    [Table("Parties")]
-    public class PartyModel
+    [Table("Invites")]
+    public class InviteModel
     {
-        [Required, Key]
-        public int Id { get; set; }
-
-        [Required]
+        [Required, Key, Column(Order = 0)]
         public string UserId { get; set; }
 
         [ForeignKey("UserId")]
         public virtual UserModel User { get; set; }
 
-        public virtual ICollection<InviteModel> Invites { get; set; }
+        [Required, Key, Column(Order = 1)]
+        public int PartyId { get; set; }
+
+        [ForeignKey("PartyId")]
+        public virtual PartyModel Party { get; set; }
     }
 }

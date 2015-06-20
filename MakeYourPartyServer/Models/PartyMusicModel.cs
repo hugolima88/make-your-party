@@ -7,8 +7,8 @@ using System.Web;
 
 namespace MakeYourPartyServer.Models
 {
-    [Table("Parties")]
-    public class PartyModel
+    [Table("PartyMusics")]
+    public class PartyMusicModel
     {
         [Required, Key]
         public int Id { get; set; }
@@ -19,6 +19,7 @@ namespace MakeYourPartyServer.Models
         [ForeignKey("UserId")]
         public virtual UserModel User { get; set; }
 
-        public virtual ICollection<InviteModel> Invites { get; set; }
+        [Required]
+        public string MusicLink { get; set; }
     }
 }
