@@ -27,14 +27,23 @@ namespace MakeYourPartyServer.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<IdentityUser>().ToTable("Users");
             modelBuilder.Entity<UserModel>().ToTable("Users");
+                //.HasRequired(c => c.Parties)
+                //.WithMany()
+                //.WillCascadeOnDelete(false);
             modelBuilder.Entity<IdentityUserRole>().ToTable("UserRoles");
             modelBuilder.Entity<IdentityUserLogin>().ToTable("UserLogins");
             modelBuilder.Entity<IdentityUserClaim>().ToTable("UserClaims");
             modelBuilder.Entity<IdentityRole>().ToTable("Roles");
 
+            //modelBuilder.Entity<PartyModel>()
+            //    .HasRequired(c => c.User)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
+
             modelBuilder.Entity<PartyModel>()
                 .HasRequired(c => c.User)
-                .WithMany()
+                .WithMany(c => c.Parties)
+                .HasForeignKey(c => c.UserId)
                 .WillCascadeOnDelete(false);
         }
     }

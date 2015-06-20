@@ -14,6 +14,7 @@ namespace MakeYourPartyServer.Models
     [Table("Users")]
     public class UserModel : IdentityUser
     {
+        [InverseProperty("User")] 
         public virtual ICollection<PartyModel> Parties { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<UserModel> manager)

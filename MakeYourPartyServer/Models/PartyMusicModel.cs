@@ -10,7 +10,7 @@ namespace MakeYourPartyServer.Models
     [Table("PartyMusics")]
     public class PartyMusicModel
     {
-        [Required, Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

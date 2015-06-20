@@ -1,4 +1,6 @@
-﻿using System;
+﻿using MakeYourPartyServer.Models;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,15 +17,11 @@ namespace MakeYourPartyServer.Controllers
 
         public ActionResult About()
         {
-            ViewBag.Message = "Let's make your party?.";
-
             return View();
         }
 
         public ActionResult Contact()
         {
-            ViewBag.Message = "Your contact page.";
-
             return View();
         }
     }
