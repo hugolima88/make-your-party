@@ -20,6 +20,8 @@ namespace MakeYourPartyServer.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public DbSet<PartyModel> Parties { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
@@ -28,6 +30,15 @@ namespace MakeYourPartyServer.Models
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
+        }
+
+        protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityUser>()
+                .ToTable("Users", "dbo");
+            modelBuilder.Entity<ApplicationUser>()
+                .ToTable("Users", "dbo");
         }
     }
 }
