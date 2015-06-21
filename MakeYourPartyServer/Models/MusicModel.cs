@@ -7,19 +7,14 @@ using System.Web;
 
 namespace MakeYourPartyServer.Models
 {
-    [Table("PartyMusics")]
-    public class PartyMusicModel
+    public class MusicModel
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
-        [Required]
         public string UserId { get; set; }
 
-        [ForeignKey("UserId")]
         public virtual UserModel User { get; set; }
 
-        [Required]
         public string MusicLink { get; set; }
     }
 }

@@ -2,17 +2,8 @@
     ViewBag.Title = "Home";
 }
 
-@if (Request.IsAuthenticated)
-{
-    <div class="jumbotron">
-        <h1>Let's make your party?</h1>
-        @Html.ActionLink("Create Party", "CreateParty", "Party",  routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg" })
-    </div>
-}
-else
-{
 
-    <h2>Please log in:</h2>
-
-    @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg" })
-}
+<div class="jumbotron">
+    <h1>Let's make your party?</h1>
+    @Html.ActionLink("Create Party", "CreateParty", "Party",  routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg" })
+</div>
