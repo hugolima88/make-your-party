@@ -17,10 +17,7 @@ namespace MakeYourPartyServer.Models.EntityConfiguration
 
                 this.Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-                this.Ignore(x => x.ConfirmPassword);
-
                 this.Property(x => x.Password).IsRequired();
-
         }
     }
 }

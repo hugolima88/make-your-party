@@ -17,12 +17,9 @@ namespace MakeYourPartyServer.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CreateParty(PartyModel model)
+        public ActionResult CreateParty(PartyViewModel model)
         {
             // Validate if the user already has a party running
-
-
-            ModelState.Remove("UserId");
 
             if (!ModelState.IsValid)
             {
@@ -31,12 +28,16 @@ namespace MakeYourPartyServer.Controllers
 
             using (var context = new ApplicationDbContext())
             {
-                string loginUserId = User.Identity.GetUserId();
-                model.UserId = loginUserId;
-                var party = context.Parties.Add(model);
+                var partyModel = new PartyModel()
+                {
+                    UserId = User.Identity.GetUserId(),
+                    Password = model.Password
+                };
 
+                partyModel = context.Parties.Add(partyModel);
                 context.SaveChanges();
-                return View("Party", party);
+
+                return View("Party", new PartyViewModel(partyModel));
             }
         }
     }
