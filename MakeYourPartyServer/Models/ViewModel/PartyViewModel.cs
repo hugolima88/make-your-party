@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MakeYourPartyServer.Models.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +14,7 @@ namespace MakeYourPartyServer.Models
         {
             this.User = model.User;
             this.Invites = model.Invites;
-            this.Password = model.Password;
+            this.PartyCode = model.PartyCode;
         }
 
         public PartyViewModel() { }
@@ -22,14 +23,12 @@ namespace MakeYourPartyServer.Models
 
         public ICollection<InviteModel> Invites { get; set; }
 
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password")]
-        public string Password { get; set; }
+        [Required]
+        [Display(Name = "Party Code")]
+        public string PartyCode { get; set; }
 
-        [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        public string SearchText { get; set; }
+
+        public IList<MusicItemViewModel> MusicList { get; set; }
     }
 }

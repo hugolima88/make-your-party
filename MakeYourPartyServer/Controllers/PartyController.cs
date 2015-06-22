@@ -5,6 +5,15 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using Google.Apis.Samples.Helper;
+using Google.Apis.Services;
+using Google.Apis.YouTube.v3;
+using Google.Apis.YouTube.v3.Data;
+using MakeYourPartyServer.Models.ViewModel;
+using MakeYourPartyServer.YouTube;
 
 namespace MakeYourPartyServer.Controllers
 {
@@ -31,7 +40,7 @@ namespace MakeYourPartyServer.Controllers
                 var partyModel = new PartyModel()
                 {
                     UserId = User.Identity.GetUserId(),
-                    Password = model.Password
+                    PartyCode = model.PartyCode
                 };
 
                 partyModel = context.Parties.Add(partyModel);
@@ -39,6 +48,23 @@ namespace MakeYourPartyServer.Controllers
 
                 return View("Party", new PartyViewModel(partyModel));
             }
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult SearchVideo(PartyViewModel model)
+        {
+            ModelState.Remove("PartyCode");
+
+            if (!ModelState.IsValid)
+            {
+                return View(model);
+            }
+
+            model.MusicList = YouTubeHelper.SearchMusic(model.SearchText);
+
+            return View("Party", model);
         }
     }
 }

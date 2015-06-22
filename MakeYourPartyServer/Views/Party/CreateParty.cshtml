@@ -3,40 +3,20 @@
     ViewBag.Title = "Create Party";
 }
 
-@if (Request.IsAuthenticated)
+@using (Html.BeginForm("CreateParty", "Party", FormMethod.Post, new { id = "createPartyForm", @class = "form-horizontal", role = "form" }))
 {
-    var name = User.Identity.Name;
-    <h1>Hi @name! Let's create your party?</h1>
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
 
-
-    using (Html.BeginForm("CreateParty", "Party", FormMethod.Post, new { id = "createPartyForm", @class = "form-horizontal", role = "form" }))
-    {
-        @Html.AntiForgeryToken()
-        @Html.ValidationSummary("", new { @class = "text-danger" })
-    
+    <div class="jumbotron">
+        <h1>Let's make your party?</h1>
         <div class="form-group">
-            @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
+            @Html.LabelFor(m => m.PartyCode, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
-                @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                @Html.TextBoxFor(m => m.PartyCode, new { @class = "form-control" })
             </div>
         </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
-            </div>
-        </div>
-    
         <input type="submit" value="Create Party" class="btn btn-primary btn-lg" />
-    }
-}
-else
-{
-    <h2>Please log in:</h2>
-
-    @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { @class = "btn btn-primary btn-lg" })
+    </div>
 }
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

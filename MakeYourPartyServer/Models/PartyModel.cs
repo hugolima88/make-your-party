@@ -17,6 +17,6 @@ namespace MakeYourPartyServer.Models
 
         public virtual ICollection<InviteModel> Invites { get; set; }
 
-        public string Password { get; set; }
+        public string PartyCode { get; set; }
     }
 }

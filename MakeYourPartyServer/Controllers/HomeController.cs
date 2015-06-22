@@ -13,7 +13,7 @@ namespace MakeYourPartyServer.Controllers
         public ActionResult Index()
         {
             if (Request.IsAuthenticated)
-                return View();
+                return RedirectToAction("CreateParty", "Party", null);
             else
                 return RedirectToAction("Login", "Account", null);
 

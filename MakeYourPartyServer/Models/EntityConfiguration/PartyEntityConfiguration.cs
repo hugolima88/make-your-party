@@ -17,7 +17,7 @@ namespace MakeYourPartyServer.Models.EntityConfiguration
 
                 this.Property(x => x.Id).HasDatabaseGeneratedOption(DatabaseGeneratedOption.Identity);
 
-                this.Property(x => x.Password).IsRequired();
+                this.Property(x => x.PartyCode).IsRequired();
         }
     }
 }
