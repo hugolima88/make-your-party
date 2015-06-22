@@ -24,7 +24,7 @@ namespace MakeYourPartyServer.Models
         public ICollection<InviteModel> Invites { get; set; }
 
         [Required]
-        [Display(Name = "Party Code")]
+        [Display(Name = "Private Code")]
         public string PartyCode { get; set; }
 
         public string SearchText { get; set; }
