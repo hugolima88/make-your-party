@@ -17,18 +17,39 @@
                 @Html.TextBoxFor(x => x.SearchText, new { @class = "form-control" })
             </div>
         </div>
-        <input value="Search Music" type="submit" class="btn btn-primary btn-lg" />
+        <input id="btn-search" value="Search Music" class="btn btn-primary btn-lg" />
     </div>
+    
+    <div id="div-search-videos-list" />
 
-    if (Model.MusicList != null)
-    {
-        foreach (var item in Model.MusicList)
-        {
-            <h3>@item.Title</h3>
-            <p>@item.Description</p>
-            @*@Html.Raw(item.Thumbnail)*@
-            <br />
-            @Html.Raw(item.InnerHtmlPlayer)
-        }
-    }
+    <script src="~/Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+
+    <script>
+    $(document).ready(function () {
+        $("#btn-search").click(function () {
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("SearchMusics", "Party")',
+                dataType: 'json',
+                data: SearchText = $("#SearchText"),
+                success: function (data) {
+                    $.each(data, function (index) {
+                        $("#div-search-videos-list").append("<h3>" + data[index].Title + "</h3>");
+                        $("#div-search-videos-list").append("<p>" + data[index].Description + "</p>");
+                        $("#div-search-videos-list").append(data[index].Thumbnail);
+                        $("#div-search-videos-list").append("<input class='btn-add-to-playlist' value='Add to Playlist' type='button' id='" + data[index].VideoId + "' />");
+                    });
+                },
+                error: function () {
+                    alert('failure');
+                }
+            });
+        });
+
+        $("#div-search-videos-list").on("click", "input", function () {
+            alert();
+        });
+        
+    });
+    </script>
 }

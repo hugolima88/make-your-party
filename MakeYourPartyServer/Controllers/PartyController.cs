@@ -5,15 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
-using System;
 using System.Collections;
-using System.Collections.Generic;
 using Google.Apis.Samples.Helper;
 using Google.Apis.Services;
 using Google.Apis.YouTube.v3;
 using Google.Apis.YouTube.v3.Data;
 using MakeYourPartyServer.Models.ViewModel;
 using MakeYourPartyServer.YouTube;
+using Newtonsoft.Json;
 
 namespace MakeYourPartyServer.Controllers
 {
@@ -52,19 +51,10 @@ namespace MakeYourPartyServer.Controllers
 
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult SearchVideo(PartyViewModel model)
+        public JsonResult SearchMusics(string SearchText)
         {
-            ModelState.Remove("PartyCode");
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
-            model.MusicList = YouTubeHelper.SearchMusic(model.SearchText);
-
-            return View("Party", model);
+            var musicList = YouTubeHelper.SearchMusic(SearchText);
+            return Json(musicList);
         }
     }
 }
