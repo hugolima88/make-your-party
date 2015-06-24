@@ -1,0 +1,21 @@
+﻿@model MakeYourPartyServer.Models.SearchMusicResultViewModel
+
+@if (Model != null)
+{
+    foreach (var music in Model.Results)
+    {
+        <div>
+            <h3>@music.Title</h3>
+            <p>@music.Description</p>
+            @Html.Raw(music.Thumbnail)
+            @Html.HiddenFor(x => music.VideoId)
+            @Html.HiddenFor(x => Model.PartyId)
+            @Html.HiddenFor(x => Model.UserId)
+            @Html.HiddenFor(x => music.Title)
+                
+            <input type="button" value="Add to Playlist"/>
+        </div>
+    }
+}
+
+

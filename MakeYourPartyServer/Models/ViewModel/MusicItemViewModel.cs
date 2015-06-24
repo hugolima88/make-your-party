@@ -22,11 +22,9 @@ namespace MakeYourPartyServer.Models.ViewModel
             this.VideoId = video.Id.VideoId;
             this.Title = video.Snippet.Title;
             this.Description = video.Snippet.Description;
-
             this.Thumbnail = "<img src=\"" + video.Snippet.Thumbnails.Default.Url + "\" alt=\"" + this.Title + "\" />";
 
             this.InnerHtmlPlayer = YouTubeHelper.GetEmbeddedPlayerHTML(video.Id.VideoId);
-
         }
     }
 }

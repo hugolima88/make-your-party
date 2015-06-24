@@ -13,6 +13,7 @@ using Google.Apis.YouTube.v3.Data;
 using MakeYourPartyServer.Models.ViewModel;
 using MakeYourPartyServer.YouTube;
 using Newtonsoft.Json;
+using System.Data.Entity.Validation;
 
 namespace MakeYourPartyServer.Controllers
 {
@@ -51,10 +52,55 @@ namespace MakeYourPartyServer.Controllers
 
 
         [HttpPost]
-        public JsonResult SearchMusics(string SearchText)
+        public ActionResult SearchMusics(string searchText, int partyId, string userId)
         {
-            var musicList = YouTubeHelper.SearchMusic(SearchText);
-            return Json(musicList);
+            var musicList = YouTubeHelper.SearchMusic(searchText);
+            return PartialView("_SearchResult", new SearchMusicResultViewModel(musicList, partyId, userId));
+        }
+
+        [HttpPost]
+        public ActionResult AddToPlaylist(string title, string videoId, int partyId, string userId)
+        {
+            try
+            {
+                using (var context = new ApplicationDbContext())
+                {
+                    var musicModel = new MusicModel()
+                    {
+                        PartyId = partyId,
+                        VideoId = videoId,
+                        Title = title,
+                        UserId = userId
+                    };
+
+                    musicModel = context.Musics.Add(musicModel);
+                    context.SaveChanges();
+                    var musicList = (from u in context.Musics
+                                     where u.PartyId == partyId
+                                     select u).ToList();
+
+                    var playlist = new List<PlaylistViewModel>();
+
+                    foreach (var music in musicList)
+                        playlist.Add(new PlaylistViewModel(music));
+
+                    return PartialView("_Playlist", playlist);
+                }
+            }
+            catch (DbEntityValidationException e)
+            {
+                foreach (var eve in e.EntityValidationErrors)
+                {
+                    Console.WriteLine("Entity of type \"{0}\" in state \"{1}\" has the following validation errors:",
+                        eve.Entry.Entity.GetType().Name, eve.Entry.State);
+                    foreach (var ve in eve.ValidationErrors)
+                    {
+                        Console.WriteLine("- Property: \"{0}\", Error: \"{1}\"",
+                            ve.PropertyName, ve.ErrorMessage);
+                    }
+                }
+                throw;
+            }
         }
     }
 }

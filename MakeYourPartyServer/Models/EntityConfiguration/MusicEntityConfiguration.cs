@@ -19,7 +19,11 @@ namespace MakeYourPartyServer.Models.EntityConfiguration
 
                 this.HasRequired<UserModel>(x => x.User);
 
-                this.Property(x => x.MusicLink).IsRequired();
+                this.Property(x => x.VideoId).IsRequired();
+
+                this.Property(x => x.Title).IsOptional();
+
+                this.Property(x => x.PartyId).IsRequired();
         }
     }
 }

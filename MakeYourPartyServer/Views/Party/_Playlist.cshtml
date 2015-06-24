@@ -1,0 +1,18 @@
+﻿@model IList<MakeYourPartyServer.Models.ViewModel.PlaylistViewModel>
+
+
+<h2>Playlist</h2>
+
+@if (Model != null)
+{
+    foreach (var music in Model)
+    {
+        <div>
+            <h3>@music.Title)</h3>
+            @Html.HiddenFor(x => music.VideoId)
+            <input type="button" value="Play Now"/>
+        </div>
+    }
+}
+
+

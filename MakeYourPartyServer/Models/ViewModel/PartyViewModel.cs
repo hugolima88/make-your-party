@@ -12,20 +12,23 @@ namespace MakeYourPartyServer.Models
     {
         public PartyViewModel(PartyModel model)
         {
-            this.User = model.User;
+            this.UserId = model.UserId;
             this.Invites = model.Invites;
             this.PartyCode = model.PartyCode;
+            this.PartyId = model.Id;
         }
 
         public PartyViewModel() { }
 
-        public virtual UserModel User { get; set; }
+        public string UserId { get; set; }
 
         public ICollection<InviteModel> Invites { get; set; }
 
         [Required]
         [Display(Name = "Private Code")]
         public string PartyCode { get; set; }
+
+        public int PartyId { get; set; }
 
         public string SearchText { get; set; }
 

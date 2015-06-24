@@ -15,6 +15,10 @@ namespace MakeYourPartyServer.Models
 
         public virtual UserModel User { get; set; }
 
-        public string MusicLink { get; set; }
+        public string Title { get; set; }
+
+        public string VideoId { get; set; }
+
+        public int PartyId { get; set; }
     }
 }
